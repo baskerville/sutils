@@ -17,34 +17,23 @@ BINLST = $(subst $(space),$(comma),$(BIN))
 
 all: CFLAGS += -Os
 all: LDFLAGS += -s
-all: options $(BIN)
+all: $(BIN)
 
 debug: CFLAGS += -O0 -g -DDEBUG
-debug: options $(BIN)
-
-options:
-	@echo "Build options:"
-	@echo "CC      = $(CC)"
-	@echo "CFLAGS  = $(CFLAGS)"
-	@echo "LDFLAGS = $(LDFLAGS)"
-	@echo "LIBS    = $(LIBS)"
-	@echo "PREFIX  = $(PREFIX)"
+debug: $(BIN)
 
 $(BIN): $(SRC)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $@ $@.c
 
-clean:
-	@echo "Cleaning."
-	rm -f $(BIN)
-
 install:
-	@echo "Installing executable files to '$(DESTDIR)$(BINPREFIX)'."
 	mkdir -p "$(DESTDIR)$(BINPREFIX)"
 	cp $(BIN) "$(DESTDIR)$(BINPREFIX)"
 	chmod 755 "$(DESTDIR)$(BINPREFIX)"/{$(BINLST)}
 
 uninstall:
-	@echo "Removing executable files from '$(DESTDIR)$(BINPREFIX)'."
 	rm -f "$(DESTDIR)$(BINPREFIX)"/{$(BINLST)}
 
-.PHONY: all debug options clean install uninstall
+clean:
+	rm -f $(BIN)
+
+.PHONY: all debug clean install uninstall
