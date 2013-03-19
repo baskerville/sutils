@@ -19,10 +19,12 @@ all: CFLAGS += -Os
 all: LDFLAGS += -s
 all: $(BIN)
 
+include Incgraph
+
 debug: CFLAGS += -O0 -g -DDEBUG
 debug: $(BIN)
 
-$(BIN): $(SRC) Makefile
+$(BIN): Makefile
 	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $@ $@.c
 
 install:

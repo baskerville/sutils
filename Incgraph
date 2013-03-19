@@ -1,0 +1,3 @@
+clock: clock.c
+exist: exist.c
+uq: uq.c
