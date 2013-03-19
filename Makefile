@@ -19,7 +19,7 @@ all: CFLAGS += -Os
 all: LDFLAGS += -s
 all: $(BIN)
 
-include Incgraph
+include Sourcedeps
 
 debug: CFLAGS += -O0 -g -DDEBUG
 debug: $(BIN)
