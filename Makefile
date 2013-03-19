@@ -22,7 +22,7 @@ all: $(BIN)
 debug: CFLAGS += -O0 -g -DDEBUG
 debug: $(BIN)
 
-$(BIN): $(SRC)
+$(BIN): $(SRC) Makefile
 	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $@ $@.c
 
 install:
