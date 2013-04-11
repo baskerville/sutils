@@ -1,3 +1,4 @@
+battery: battery.c
 clock: clock.c
 exist: exist.c
 narg: narg.c
