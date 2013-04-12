@@ -14,12 +14,12 @@
 #define STATUS_KEY    KEY_PREFIX "STATUS"
 #define CAPACITY_KEY  KEY_PREFIX "CAPACITY"
 
-bool put_infos(char *path, char *format)
+int put_infos(char *path, char *format)
 {
     FILE *bf = fopen(path, "r");
     if (bf == NULL) {
         fprintf(stderr, "Can't open '%s'.\n", path);
-        return false;
+        return EXIT_FAILURE;
     }
 
     char line[MAXLEN] = {0};
@@ -41,12 +41,12 @@ bool put_infos(char *path, char *format)
     fclose(bf);
     if (!found_capacity || !found_status) {
         fprintf(stderr, "The battery informations are missing.\n");
-        return false;
+        return EXIT_FAILURE;
     } else {
         printf(format, status, capacity);
         printf("\n");
     }
-    return true;
+    return EXIT_SUCCESS;
 }
 
 int main(int argc, char *argv[])
@@ -85,11 +85,13 @@ int main(int argc, char *argv[])
     char real_path[MAXLEN] = {0};
     snprintf(real_path, sizeof(real_path), path, index);
 
+    int exit_code;
+
     if (snoop)
-        while (put_infos(real_path, format))
+        while ((exit_code = put_infos(real_path, format)) != EXIT_FAILURE)
             sleep(interval);
     else
-        put_infos(real_path, format);
+        exit_code = put_infos(real_path, format);
 
-    return EXIT_SUCCESS;
+    return exit_code;
 }
