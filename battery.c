@@ -3,8 +3,8 @@
 #include <stdbool.h>
 #include <string.h>
 #include <unistd.h>
+#include "common.h"
 
-#define MAXLEN        256
 #define INTERVAL      3
 #define FORMAT        "%s %i"
 #define TOKSEP        "=\n"
@@ -45,6 +45,7 @@ int put_infos(char *path, char *format)
     } else {
         printf(format, status, capacity);
         printf("\n");
+        fflush(stdout);
     }
     return EXIT_SUCCESS;
 }
