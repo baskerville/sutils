@@ -21,6 +21,8 @@ char name[IW_ESSID_MAX_SIZE + 1] = {0};
 
 void put_status(int fd, struct iwreq *rqt)
 {
+    rqt->u.essid.pointer = name;
+    rqt->u.essid.length = IW_ESSID_MAX_SIZE + 1;
     if (ioctl(fd, SIOCGIWESSID, rqt) == -1) {
         perror("ioctl");
         exit(EXIT_FAILURE);
@@ -66,9 +68,6 @@ int main(int argc, char *argv[])
         perror("socket");
         exit(EXIT_FAILURE);
     }
-
-    request.u.essid.pointer = name;
-    request.u.essid.length = IW_ESSID_MAX_SIZE + 1;
 
     if (snoop)
         while (true) {
