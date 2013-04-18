@@ -27,6 +27,7 @@ void put_status(int fd, struct iwreq *rqt)
     }
     printf(format, name);
     printf("\n");
+    fflush(stdout);
 }
 
 int main(int argc, char *argv[])
