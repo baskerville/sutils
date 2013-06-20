@@ -29,8 +29,7 @@ $(BIN): Makefile
 
 install:
 	mkdir -p "$(DESTDIR)$(BINPREFIX)"
-	cp $(BIN) "$(DESTDIR)$(BINPREFIX)"
-	chmod 755 "$(DESTDIR)$(BINPREFIX)"/{$(BINLST)}
+	cp -p $(BIN) "$(DESTDIR)$(BINPREFIX)"
 
 uninstall:
 	rm -f "$(DESTDIR)$(BINPREFIX)"/{$(BINLST)}
