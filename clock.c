@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <time.h>
+#include <locale.h>
 #include "common.h"
 
 #define INTERVAL      3
@@ -50,6 +51,9 @@ int main(int argc, char *argv[])
     }
 
     int exit_code;
+
+    if (setlocale(LC_ALL, "") == NULL)
+        perror("setlocale");
 
     if (snoop)
         while ((exit_code = put_infos(format)) != EXIT_FAILURE)
