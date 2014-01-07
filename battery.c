@@ -43,13 +43,12 @@ int put_infos(char *path, char *format)
         fprintf(stderr, "The battery informations are missing.\n");
         return EXIT_FAILURE;
     } else {
-        if(strstr(format, "%s")==NULL) {
+        if (strstr(format, "%s") == NULL)
             printf(format, capacity);
-        }else if(strstr(format, "%i")==NULL) {
+        else if (strstr(format, "%i") == NULL)
             printf(format, status);
-        }else{
+        else
             printf(format, status, capacity);
-        }
         printf("\n");
         fflush(stdout);
     }
