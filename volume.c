@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
     while ((opt = getopt(argc, argv, "hsf:i:d:v:m:")) != -1) {
         switch (opt) {
             case 'h':
-                printf("battery [-h|-s|-f FORMAT|-i INTERVAL|-d DEVICE|-v VOLUME_CONTROL|-m MUTE_CONTROL]\n");
+                printf("volume [-h|-s|-f FORMAT|-i INTERVAL|-d DEVICE|-v VOLUME_CONTROL|-m MUTE_CONTROL]\n");
                 exit(EXIT_SUCCESS);
                 break;
             case 's':
