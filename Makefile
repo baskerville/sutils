@@ -25,7 +25,7 @@ debug: CFLAGS += -O0 -g -DDEBUG
 debug: $(BIN)
 
 $(BIN): Makefile
-	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $@ $@.c
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $@.c $(LIBS)
 
 install:
 	mkdir -p "$(DESTDIR)$(BINPREFIX)"
