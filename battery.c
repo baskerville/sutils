@@ -40,7 +40,7 @@ int put_infos(char *path, char *format)
     }
     fclose(bf);
     if (!found_capacity || !found_status) {
-        fprintf(stderr, "The battery informations are missing.\n");
+        fprintf(stderr, "The battery information is missing.\n");
         return EXIT_FAILURE;
     } else {
         if (strstr(format, "%s") == NULL)
