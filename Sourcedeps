@@ -5,3 +5,4 @@ exist: exist.c
 narg: narg.c
 uq: uq.c
 volume: volume.c
+fan_speed: fan_speed.c
