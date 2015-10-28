@@ -4,4 +4,5 @@ essid: essid.c
 exist: exist.c
 narg: narg.c
 uq: uq.c
+volume: LIBS = -lasound
 volume: volume.c
