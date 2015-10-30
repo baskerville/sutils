@@ -1,3 +1,4 @@
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -13,6 +14,8 @@
 #define DEVICE         "hw:0"
 #define VOLUME_CONTROL "Master Playback Volume"
 #define MUTE_CONTROL   "Master Playback Switch"
+
+bool update = false;
 
 int put_infos(int vol_min, int vol_max,
     snd_hctl_elem_t *volume_elem, snd_hctl_elem_t *mute_elem,
@@ -47,6 +50,11 @@ int put_infos(int vol_min, int vol_max,
     fflush(stdout);
 
     return EXIT_SUCCESS;
+}
+
+void sig_handler(int sig __attribute__((unused)))
+{
+    update = true;
 }
 
 int main(int argc, char *argv[])
@@ -123,16 +131,27 @@ int main(int argc, char *argv[])
     vol_min = (int)snd_ctl_elem_info_get_min(volume_info);
     vol_max = (int)snd_ctl_elem_info_get_max(volume_info);
 
-
     if (volume_elem == NULL || mute_elem == NULL) {
         snd_hctl_close(hctl);
         return EXIT_FAILURE;
     }
 
+    struct sigaction action = {.sa_handler = &sig_handler};
+    sigaction(SIGUSR1, &action, NULL);
+
     if (snoop)
-        while ((exit_code = put_infos(vol_min, vol_max, volume_elem, mute_elem,
-            volume_ctl, mute_ctl, format)) != EXIT_FAILURE)
+        for (;;) {
+            if (update) {
+                update = false;
+                continue;
+            }
+
+            if ((exit_code = put_infos(vol_min, vol_max, volume_elem, mute_elem,
+                volume_ctl, mute_ctl, format)) == EXIT_FAILURE)
+                break;
+
             sleep(interval);
+        }
     else
         exit_code = put_infos(vol_min, vol_max, volume_elem, mute_elem,
             volume_ctl, mute_ctl, format);
@@ -145,4 +164,3 @@ int main(int argc, char *argv[])
     snd_ctl_elem_info_free(volume_info);
     return exit_code;
 }
-
