@@ -3,6 +3,7 @@ clock: clock.c common.h
 essid: essid.c
 exist: exist.c
 narg: narg.c
+temp: temp.c common.h
 uq: uq.c
 volume: LIBS = -lasound
 volume: volume.c
