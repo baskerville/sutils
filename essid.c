@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     char *interface = INTERFACE;
     bool snoop = false;
 
-    char opt;
+    int opt;
     while ((opt = getopt(argc, argv, "hsf:i:w:")) != -1) {
         switch (opt) {
             case 'h':

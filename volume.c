@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     int interval = INTERVAL;
     bool snoop = false;
 
-    char opt;
+    int opt;
     while ((opt = getopt(argc, argv, "hsf:i:d:v:m:")) != -1) {
         switch (opt) {
             case 'h':

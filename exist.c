@@ -14,7 +14,7 @@ void check_file(char *pth, bool inv) {
 }
 
 int main(int argc, char *argv[]) {
-    char opt;
+    int opt;
     bool invert_matches = false;
 
     while ((opt = getopt(argc, argv, "hv")) != -1) {
